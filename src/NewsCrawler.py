@@ -14,12 +14,16 @@ class NewsCrawler:
 
         self.homeURL = "https://www.ynet.co.il"
 
+        #todo remove comment
+
         # link = self.getLinkFromSubject()
 
-        articles = self.getArticlesURLs("https://www.ynet.co.il/home/0,7340,L-4269-723-56-201801-1,00.html")
+        # articles = self.getArticlesURLs("https://www.ynet.co.il/home/0,7340,L-4269-723-56-201801-1,00.html")
+        #
+        # for article in articles:
+        #     self.addWordsFromArticle(article)
 
-        for article in articles:
-            self.addWordsFromArticle(article)
+        self.addWordsFromArticle("https://www.ynet.co.il/articles/0,7340,L-5064774,00.html")
 
         navot = 'kanas'
 
@@ -50,7 +54,22 @@ class NewsCrawler:
         else:
             self.wordCounter[word] = 1
 
+    def addLineToBigDic(self, line):
 
+        for word in line.split():
+            self.addToBigDic(word)
+
+    def addWordsFromArticle(self, article):
+        articleHTML = requests.get(article).text
+        soup = bs(articleHTML)
+
+        main_title_text = soup.find_all('div', attrs={'class': 'art_header_title'})[0].contents[0]
+
+        sub_title_text = soup.find_all('div', attrs={'class': 'art_header_sub_title'})[0].contents[0]
+
+
+
+        pass
 
 
 if __name__ == '__main__':
