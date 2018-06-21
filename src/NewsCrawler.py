@@ -12,25 +12,25 @@ class NewsCrawler:
 
         self.homeURL = "https://www.ynet.co.il"
 
-        links = self.getLinksFromSubject()
+        link = self.getLinkFromSubject()
 
 
 
         navot = 'kanas'
 
-    def getLinksFromSubject(self):
+    def getLinkFromSubject(self):
         archive_html = requests.get("https://www.ynet.co.il/home/0,7340,L-4269,00.html").text
 
         soup = bs(archive_html)
 
         links = soup.find_all('a', text=re.compile("^" + self.subject + "$"), attrs={'class': 'CSH'})
 
-        return [self.homeURL + link.attrs['href'] for link in links]
+        return [self.homeURL + link.attrs['href'] for link in links][0]
 
     def getArticlesPageFromYearAndMonth(self, link):
         pass
 
-    def getArticlesURLs(self):
+    def getArticlesURLs(self, ):
         pass
 
 if __name__ == '__main__':
