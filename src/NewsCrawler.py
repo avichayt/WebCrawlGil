@@ -10,11 +10,16 @@ class NewsCrawler:
         self.year = year
         self.month = month
 
+        self.wordCounter = {}
+
         self.homeURL = "https://www.ynet.co.il"
 
-        link = self.getLinkFromSubject()
+        # link = self.getLinkFromSubject()
 
+        articles = self.getArticlesURLs("https://www.ynet.co.il/home/0,7340,L-4269-723-56-201801-1,00.html")
 
+        for article in articles:
+            self.addWordsFromArticle(article)
 
         navot = 'kanas'
 
@@ -30,8 +35,23 @@ class NewsCrawler:
     def getArticlesPageFromYearAndMonth(self, link):
         pass
 
-    def getArticlesURLs(self, ):
-        pass
+    def getArticlesURLs(self, link):
+        articlesPageHtml = requests.get(link).text
+
+        soup = bs(articlesPageHtml)
+
+        links = soup.find_all('a', attrs={'class': 'smallheader'})
+
+        return [self.homeURL + link.attrs['href'] for link in links]
+
+    def addToBigDic(self, word):
+        if word in self.wordCounter:
+            self.wordCounter[word] += 1
+        else:
+            self.wordCounter[word] = 1
+
+
+
 
 if __name__ == '__main__':
-    newsCrawler = NewsCrawler("חדשות", 2018, "ינואר")
+    newsCrawler = NewsCrawler("כדורגל עולמי", 2018, "ינואר")
