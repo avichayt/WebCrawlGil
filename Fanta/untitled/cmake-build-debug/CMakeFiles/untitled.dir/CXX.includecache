@@ -1,0 +1,22 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/navot/Desktop/Fanta/untitled/main.cpp
+stdio.h
+-
+stdlib.h
+-
+link.h
+-
+dlfcn.h
+-
+string.h
+-
+unistd.h
+-
+
